@@ -1,18 +1,8 @@
 void main() {
-  List<int> array = [
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-  ];
+  List<int> array = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   //int data = binerysearch(array, 111);
 //  print(data);
-  bineryrecurtion(array, 7);
+  bineryrecurtion(array, 5);
 }
 
 bineryrecurtion(List<int> array, int target) {

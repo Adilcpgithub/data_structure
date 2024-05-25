@@ -82,24 +82,18 @@ class SinglyLinkedList<T> {
     Node<T>? temp = head;
     Node<T> putData = Node(data);
 
-    // Traverse to find the node with data 'nextTo'
     while (temp != null && temp.data != nextTo) {
       temp = temp.next;
     }
 
-    // If the node with 'nextTo' data is not found, return
     if (temp == null) {
       return;
     }
-
-    // If inserting after the tail node
     if (temp == tail) {
       tail?.next = putData;
       tail = putData;
       return;
     }
-
-    // Insert the new node after the found node
     putData.next = temp.next;
     temp.next = putData;
   }
@@ -112,8 +106,8 @@ void main() {
   sample.append(3);
   sample.append(4);
 
-  sample.insertAfter(2, 22);
-  // sample.delete(1);
+  //sample.insertAfter(2, 22);
+  sample.delete(3);
 
   sample.printdata();
 }

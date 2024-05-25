@@ -180,10 +180,10 @@ void main() {
   sample.append(3);
   sample.append(4);
   sample.append(5);
-  sample.swapDate();
+//  sample.swapDate();
   //sample.delete(3);
   // sample.isertAfter(4, 111);
-//  sample.isertbefore(3, 8);
-  // sample.display();
+  sample.isertbefore(3, 8);
+  sample.display();
 // sample.displayReverse()
 }
