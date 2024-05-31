@@ -1,43 +1,105 @@
-void main() {
-  List<int> array = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  //int data = binerysearch(array, 111);
-//  print(data);
-  bineryrecurtion(array, 5);
+class Node<T> {
+  T data;
+  Node<T>? next;
+  // Node<T>? next;
+  Node(this.data);
 }
 
-bineryrecurtion(List<int> array, int target) {
-  int start = 0;
-  int end = array.length - 1;
-  int data = helper(array, target, start, end);
-  print(data);
-}
+class singleList<T> {
+  Node<T>? head;
+  Node<T>? tail;
 
-helper(List<int> array, int targer, int start, int end) {
-  if (start > end) {
-    return -1;
-  }
-  int midle = start + (end - start) ~/ 2;
-  if (array[midle] == targer) {
-    return midle;
-  } else if (array[midle] > targer) {
-    return helper(array, targer, start, end - 1);
-  } else {
-    return helper(array, targer, start + 1, end);
-  }
-}
-
-int binerysearch(List<int> arry, int target) {
-  int start = 0;
-  int end = arry.length - 1;
-  while (start <= end) {
-    int middle = start + (end - start) ~/ 2;
-    if (arry[middle] == target) {
-      return middle;
-    } else if (arry[middle] > target) {
-      end = middle - 1;
+  void append(T data) {
+    Node<T> newNode = Node(data);
+    if (head == null) {
+      head = newNode;
+      tail = newNode;
     } else {
-      start = middle + 1;
+      tail?.next = newNode;
+      tail = newNode;
+      tail?.next = null;
     }
   }
-  return -1;
+
+  swape() {
+    if (head != null) {
+      Node<T>? temp = head;
+      Node<T>? next;
+      Node<T>? prev = null;
+      while (temp != null) {
+        next = temp.next;
+        temp.next = prev;
+        prev = temp;
+        temp = next;
+        head = prev;
+      }
+    } else {
+      print('m t list');
+    }
+    Node<T>? temp = head;
+    while (temp != null) {
+      print(temp.data);
+      tail = temp;
+      temp = temp.next;
+    }
+    print(tail?.data);
+  }
+
+  void traverse() {
+    Node<T>? temp = head;
+
+    while (temp != null) {
+      print(temp.data);
+      tail = temp;
+      temp = temp.next;
+    }
+  }
+
+  void inserafter(T nextTo, T data) {
+    Node<T> newNode = Node(data);
+    if (head != null) {
+      if (head == nextTo) {
+        newNode.next = head?.next;
+        head?.next = newNode;
+        if (newNode.next == null) ;
+        tail = newNode;
+      }
+      Node<T>? temp = head;
+      while (temp != null) {
+        if (temp.data == nextTo) {
+          newNode.next = temp.next;
+          temp.next = newNode;
+        }
+        temp = temp.next;
+      }
+    }
+  }
+
+  middle() {
+    Node<T>? fast = head;
+    Node<T>? slow = head;
+
+    // Loop until fast reaches the end of the list
+    while (fast != null && fast.next != null) {
+      slow = slow?.next; // Move slow pointer by one
+      fast = fast.next?.next; // Move fast pointer by two
+    }
+
+    // Print the data of the middle node
+    if (slow != null) {
+      print(slow.data);
+    }
+  }
+}
+
+void main() {
+  var sample = singleList();
+  sample.append(1);
+
+  sample.append(4);
+  sample.append(5);
+  // sample.inserafter(0, 2);
+  //sample.traverse();
+  sample.middle();
+  // sample.swape();
 }

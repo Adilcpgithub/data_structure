@@ -11,6 +11,7 @@ class DoubleLinkedList<T> {
 
   void append(T data) {
     Node<T> newNode = Node(data);
+
     if (head == null) {
       head = newNode;
     } else {
