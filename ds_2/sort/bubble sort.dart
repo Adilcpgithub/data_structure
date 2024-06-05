@@ -13,7 +13,7 @@ bubbleSort(List<int> arr) {
 }
 
 bubblesortInRecorsion(List<int> arr, int n) {
-  if (n == 1) {
+  if (n <= 1) {
     return arr;
   }
   for (var i = 0; i < n - 1; i++) {
