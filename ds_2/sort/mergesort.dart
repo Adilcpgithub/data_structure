@@ -9,17 +9,17 @@ List<int> mergesort(List<int> array) {
     return array;
   }
   int middle = array.length ~/ 2;
-
   List<int> left = array.sublist(0, middle);
   List<int> right = array.sublist(middle);
+
   left = mergesort(left);
   right = mergesort(right);
   return merge(left, right);
 }
 
 List<int> merge(List<int> left, List<int> right) {
-  List<int> result = [];
   int i = 0, j = 0;
+  List<int> result = [];
   while (i < left.length && j < right.length) {
     if (left[i] <= right[j]) {
       result.add(left[i]);
@@ -33,6 +33,7 @@ List<int> merge(List<int> left, List<int> right) {
     result.add(left[i]);
     i++;
   }
+
   while (j < right.length) {
     result.add(right[j]);
     j++;
