@@ -44,9 +44,5 @@ void main() {
   stack.push(4);
   stack.pop();
   stack.pop();
-  stack.pop();
-  stack.pop();
-  stack.pop();
-  stack.push(4);
   stack.display();
 }
