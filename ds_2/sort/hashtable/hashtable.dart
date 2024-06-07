@@ -61,7 +61,7 @@ class HashTabel<K, V> {
 }
 
 void main() {
-  HashTabel hashTabel = HashTabel(capacity: 15);
+  HashTabel hashTabel = HashTabel();
 
   hashTabel.add('one', 1);
   hashTabel.add('two', 2);
