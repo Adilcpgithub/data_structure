@@ -63,7 +63,7 @@ void main() {
   queue.enqueue(2);
   queue.enqueue(3);
   queue.enqueue(4);
-  queue.remove(1);
+  queue.remove(3);
   queue.dequeue();
   queue.display();
 }
