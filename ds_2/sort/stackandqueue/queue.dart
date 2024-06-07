@@ -36,6 +36,25 @@ class Queue<T> {
       temp = temp.next;
     }
   }
+
+  remove(T data) {
+    Node<T>? temp = front;
+    Node<T>? prew;
+    if (temp != null && temp.data == data) {
+      front = temp.next;
+    }
+    while (temp != null && temp.data != data) {
+      prew = temp;
+      temp = temp.next;
+    }
+    if (temp == null) {
+      return;
+    }
+    prew?.next = temp.next;
+    if (temp.next == null) {
+      rear = temp;
+    }
+  }
 }
 
 void main() {
@@ -44,10 +63,7 @@ void main() {
   queue.enqueue(2);
   queue.enqueue(3);
   queue.enqueue(4);
-  queue.dequeue();
-  queue.dequeue();
-  queue.dequeue();
-  queue.dequeue();
+  queue.remove(1);
   queue.dequeue();
   queue.display();
 }
