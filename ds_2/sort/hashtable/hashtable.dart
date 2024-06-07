@@ -58,6 +58,11 @@ class HashTabel<K, V> {
       print(' bucket $i :${buckets[i]}');
     }
   }
+
+  void remove(K key) {
+    int index = hash(key);
+    buckets[index].removeWhere((element) => element.key == key);
+  }
 }
 
 void main() {
@@ -66,8 +71,9 @@ void main() {
   hashTabel.add('one', 1);
   hashTabel.add('two', 2);
   hashTabel.add('tree', 3);
-  hashTabel.add('for', 4);
-  hashTabel.add(40, 5);
+  hashTabel.remove('one');
+  hashTabel.remove('two');
+  hashTabel.remove('tree');
   hashTabel.displayTable();
   hashTabel.displayBucketCount();
 }
