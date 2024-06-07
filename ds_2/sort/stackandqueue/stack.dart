@@ -34,6 +34,26 @@ class Stack<T> {
       top = null;
     }
   }
+
+  removeSpecificNode(T data) {
+    Node<T>? temp = top;
+    Node<T>? prew;
+    if (temp?.data == data && temp != null) {
+      top = temp.next;
+      return true;
+    }
+    while (temp != null && temp.data != data) {
+      prew = temp;
+      temp = temp.next;
+    }
+    if (temp == null) {
+      return false;
+    }
+    if (temp.data == data) {
+      prew?.next = temp.next;
+      return true;
+    }
+  }
 }
 
 void main() {
@@ -42,7 +62,9 @@ void main() {
   stack.push(2);
   stack.push(3);
   stack.push(4);
-  stack.pop();
-  stack.pop();
+  // stack.pop();
+  // stack.pop();
+  print(stack.removeSpecificNode(3));
+
   stack.display();
 }

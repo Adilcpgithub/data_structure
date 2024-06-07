@@ -72,8 +72,6 @@ void main() {
   hashTabel.add('two', 2);
   hashTabel.add('tree', 3);
   hashTabel.remove('one');
-  hashTabel.remove('two');
-  hashTabel.remove('tree');
   hashTabel.displayTable();
   hashTabel.displayBucketCount();
 }
