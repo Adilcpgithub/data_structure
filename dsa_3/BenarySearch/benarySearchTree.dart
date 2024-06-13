@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 class Node<T> {
   int data;
   Node<T>? left;
@@ -52,23 +50,57 @@ class BinarySearchTree<T> {
     return false;
   }
 
-  // fintClosetValue(T target) {
-  //   Node<T>? current = root;
-  //   int closetdata = current!.data;
-  //   while (current != null) {
-  //     if ((target - closetdata).abs() > (target - current.data).abs()) {
-  //       closetdata = current.data;
-  //     }
-  //     if (target < current.data) {
-  //       current = current.left;
-  //     } else if (target > current.data) {
-  //       current = current.right;
-  //     } else {
-  //       break;
-  //     }
-  //   }
-  //   return closetdata;
-  // }
+  delete(int data) {
+    root = _deleteRec(root, data);
+  }
+
+  Node<T>? _deleteRec(Node<T>? node, int data) {
+    if (node == null) return null;
+    if (data < node.data) {
+      node.left = _deleteRec(node.left, data);
+    } else if (data > node.data) {
+      node.right = _deleteRec(node.right, data);
+    } else {
+      if (node.left == null && node.right == null) {
+        return null;
+      }
+      if (node.right == null) {
+        return node.left;
+      } else if (node.left == null) {
+        return node.right;
+      }
+      int? minLiftdata = _findMindinNode(node.right);
+      node.data = minLiftdata!;
+      node.right = _deleteRec(node.right, minLiftdata);
+    }
+
+    return node;
+  }
+
+  int? _findMindinNode(Node<T>? node) {
+    while (node?.left != null) {
+      node = node!.left;
+    }
+    return node!.data;
+  }
+
+  int fintClosetValue(int target) {
+    Node<T>? current = root;
+    int closetdata = current!.data;
+    while (current != null) {
+      if ((target - closetdata).abs() > (target - current.data).abs()) {
+        closetdata = current.data;
+      }
+      if (target < current.data) {
+        current = current.left;
+      } else if (target > current.data) {
+        current = current.right;
+      } else {
+        break;
+      }
+    }
+    return closetdata;
+  }
 
 //------------------------------
   inOrder() {
@@ -121,10 +153,13 @@ void main() {
   binarySearchTree.insert(11);
   binarySearchTree.insert(4);
   binarySearchTree.insert(9);
-  // print(binarySearchTree.contain(50));
-  binarySearchTree.inOrder();
-  print('------ ');
-  binarySearchTree.preOrder();
-  print('------ ');
-  binarySearchTree.postOrder();
+  binarySearchTree.insert(100);
+  binarySearchTree.delete(4);
+  print(binarySearchTree.fintClosetValue(200));
+  print(binarySearchTree.contain(4));
+  // binarySearchTree.inOrder();
+  // print('------ ');
+  // binarySearchTree.preOrder();
+  // print('------ ');
+  // binarySearchTree.postOrder();
 }
