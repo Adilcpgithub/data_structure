@@ -97,14 +97,11 @@ class BinarySearchTree<T> {
       if (node.data > target) {
         node = node.left;
         count++;
-        print('11$count');
       } else if (node.data < target) {
         node = node.right;
         count++;
-        print('11$count');
       } else {
         count++;
-        print('11$count');
         return count;
       }
     }
