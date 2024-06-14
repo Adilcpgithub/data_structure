@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 class Node<T> {
   int data;
   Node<T>? left;
@@ -84,6 +86,31 @@ class BinarySearchTree<T> {
     return node!.data;
   }
 
+  int fintTargedepth(int target) {
+    return _fintTargedepth(root, target);
+  }
+
+  int _fintTargedepth(Node<T>? node, int target) {
+    int count = 0;
+    if (node!.right == null && node.left == null) return 0;
+    while (node != null) {
+      if (node.data > target) {
+        node = node.left;
+        count++;
+        print('11$count');
+      } else if (node.data < target) {
+        node = node.right;
+        count++;
+        print('11$count');
+      } else {
+        count++;
+        print('11$count');
+        return count;
+      }
+    }
+    return 0;
+  }
+
   int fintClosetValue(int target) {
     Node<T>? current = root;
     int closetdata = current!.data;
@@ -100,6 +127,20 @@ class BinarySearchTree<T> {
       }
     }
     return closetdata;
+  }
+
+  int getHeight() {
+    return _getHeight(root);
+  }
+
+  int _getHeight(Node<T>? node) {
+    if (node == null) {
+      return 0; // If height of empty tree is defined as 0, otherwise use -1
+    } else {
+      int leftHeight = _getHeight(node.left);
+      int rightHeight = _getHeight(node.right);
+      return 1 + math.max(leftHeight, rightHeight);
+    }
   }
 
 //------------------------------
@@ -148,15 +189,14 @@ class BinarySearchTree<T> {
 void main() {
   BinarySearchTree binarySearchTree = BinarySearchTree();
 
-  binarySearchTree.insert(10);
-  binarySearchTree.insert(8);
-  binarySearchTree.insert(11);
-  binarySearchTree.insert(4);
-  binarySearchTree.insert(9);
-  binarySearchTree.insert(100);
-  binarySearchTree.delete(4);
-  print(binarySearchTree.fintClosetValue(200));
-  print(binarySearchTree.contain(4));
+  List<int> datas = [5, 4, 20, 7, 31, 25, 32, 21];
+  for (var i in datas) {
+    binarySearchTree.insert(i);
+  }
+  print(binarySearchTree.fintTargedepth(32));
+  // print(binarySearchTree.fintClosetValue(200));
+  // print(binarySearchTree.contain(4));
+  // print(binarySearchTree.getHeight());
   // binarySearchTree.inOrder();
   // print('------ ');
   // binarySearchTree.preOrder();
