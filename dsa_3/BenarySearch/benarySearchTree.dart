@@ -79,6 +79,20 @@ class BinarySearchTree<T> {
     return node;
   }
 
+  int checkBalance(Node<T>? node) {
+    if (node == null) return 0;
+
+    int leftHeight = checkBalance(node.left);
+    if (leftHeight == -1) return -1;
+
+    int rightHeight = checkBalance(node.right);
+    if (rightHeight == -1) return -1;
+
+    if ((leftHeight - rightHeight).abs() > 1) return -1;
+
+    return 1 + math.max(leftHeight, rightHeight);
+  }
+
   int? _findMindinNode(Node<T>? node) {
     while (node?.left != null) {
       node = node!.left;
