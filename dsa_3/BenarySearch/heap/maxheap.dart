@@ -79,8 +79,9 @@ class MaxHeap {
       heap[index] = heap.removeLast();
       if (index > 0 && heap[index] > heap[(index - 1) ~/ 2]) {
         heapifyUp(index);
+      } else {
         heapifyDown(index);
-      } else {}
+      }
     }
   }
 
