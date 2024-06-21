@@ -21,7 +21,7 @@ class Graph {
 
   void printGraph() {
     for (var i in graph.entries) {
-      print('${i.key}: ${i.value}');
+      print('${i.key} ${i.value}');
     }
   }
 
@@ -31,47 +31,70 @@ class Graph {
     graph.forEach((key, value) {
       graph[key]!.remove(vertex);
     });
-    print(graph);
+    //print(graph);
   }
 
   //breadth first search : choose an initial vertex and go through all its edges and then check wheather traversal is completed
   //if not go to next vertex and repeats the same process again
-  bfs(int vertex) {
-    List<int> visited = [vertex];
-    List<int> queue = [vertex];
-    while (visited.length != graph.length) {
-      if (queue.isEmpty) {
-        queue.add(graph.keys.toSet().difference(visited.toSet()).first);
-        visited.add(queue.first);
-        print(queue);
-      }
-      var current = queue[0];
-      queue.removeAt(0);
-      for (var val in graph[current]!) {
-        if (!visited.contains(val)) {
-          visited.add(val);
-          queue.add(val);
+  void bfs(int start) {
+    Set<int> visited = {};
+    List<int> queue = [start];
+
+    while (queue.isNotEmpty) {
+      var current = queue.removeAt(0);
+
+      if (!visited.contains(current)) {
+        visited.add(current);
+        print(current); // Print or process the node
+
+        for (var neighbor in graph[current]!) {
+          if (!visited.contains(neighbor)) {
+            queue.add(neighbor);
+          }
         }
       }
     }
-    print(visited);
+
+    // Handle disconnected components
+    for (var node in graph.keys) {
+      if (!visited.contains(node)) {
+        queue.add(node);
+        while (queue.isNotEmpty) {
+          var current = queue.removeAt(0);
+          if (!visited.contains(current)) {
+            visited.add(current);
+            print(current); // Print or process the node
+
+            for (var neighbor in graph[current]!) {
+              if (!visited.contains(neighbor)) {
+                queue.add(neighbor);
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   void dfs(int start) {
     Set<int> visited = {};
     dfsHelper(start, visited);
+
+    // Handle disconnected components
+    for (var node in graph.keys) {
+      if (!visited.contains(node)) {
+        dfsHelper(node, visited);
+      }
+    }
   }
 
   void dfsHelper(int vertex, Set<int> visited) {
     visited.add(vertex);
-    print(vertex);
+    print(vertex); // Print or process the node
 
-    List<int>? neighbors = graph[vertex];
-    if (neighbors != null) {
-      for (int neighbor in neighbors) {
-        if (!visited.contains(neighbor)) {
-          dfsHelper(neighbor, visited);
-        }
+    for (var neighbor in graph[vertex]!) {
+      if (!visited.contains(neighbor)) {
+        dfsHelper(neighbor, visited);
       }
     }
   }
@@ -88,7 +111,11 @@ void main() {
   graph.insert(36, 5, false);
   graph.insert(5, 61, false);
   graph.insert(20, 5, false);
+  // graph.printGraph();
+  // print('object');
+  // graph.delete(10);
 
-  // Print the adjacency list of the graph
-  graph.printGraph();
+  // // Print the adjacency list of the graph
+  // graph.printGraph();
+  graph.bfs(10);
 }
