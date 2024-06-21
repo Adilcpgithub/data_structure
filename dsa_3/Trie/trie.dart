@@ -28,6 +28,42 @@ class Trie {
     return current.endOfNode;
   }
 
+  // Delete a word from the Trie
+  bool delete(String word) {
+    return _delete(root, word, 0);
+  }
+
+  bool _delete(TrieNode current, String word, int index) {
+    if (index == word.length) {
+      // We've reached the end of the word
+      if (!current.endOfNode) {
+        // The word is not present
+        return false;
+      }
+      current.endOfNode = false;
+      // If the current node has no children, it can be deleted
+      return current.character.isEmpty;
+    }
+
+    String char = word[index];
+    TrieNode? node = current.character[char];
+    if (node == null) {
+      // The word is not present
+      return false;
+    }
+
+    bool shouldDeleteCurrentNode = _delete(node, word, index + 1);
+
+    if (shouldDeleteCurrentNode) {
+      // Remove the mapping from the current node
+      current.character.remove(char);
+      // If the current node has no other children and is not the end of another word, it can be deleted
+      return current.character.isEmpty && !current.endOfNode;
+    }
+
+    return false;
+  }
+
   // this fucton for prefix
   bool searchprefix(String words) {
     TrieNode current = root;
@@ -78,6 +114,7 @@ void main() {
   trie.insert('adil');
   trie.insert('india');
   trie.insert('its');
+  trie.delete('adil');
   print(trie.search('adil'));
   print(trie.searchprefix('ad'));
   print('----------------\n');
