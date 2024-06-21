@@ -1,27 +1,78 @@
 class Graph {
-  Map<int, List<int>> map = {};
+  Map<int, List<int>> graph = {};
 
   //this funtion for  easy to make code
   _insert(int data) {
-    map.putIfAbsent(data, () => []);
+    graph.putIfAbsent(data, () => []);
   }
 
   void insert(int vertex, int edge, bool isBidirectional) {
-    if (!map.containsKey(vertex)) {
+    if (!graph.containsKey(vertex)) {
       _insert(vertex);
     }
-    if (!map.containsKey(edge)) {
+    if (!graph.containsKey(edge)) {
       _insert(edge);
     }
-    map[vertex]?.add(edge);
+    graph[vertex]?.add(edge);
     if (isBidirectional) {
-      map[edge]?.add(vertex);
+      graph[edge]?.add(vertex);
     }
   }
 
   void printGraph() {
-    for (var i in map.entries) {
+    for (var i in graph.entries) {
       print('${i.key}: ${i.value}');
+    }
+  }
+
+  //deleting a vertex in graph
+  delete(int vertex) {
+    graph.remove(vertex);
+    graph.forEach((key, value) {
+      graph[key]!.remove(vertex);
+    });
+    print(graph);
+  }
+
+  //breadth first search : choose an initial vertex and go through all its edges and then check wheather traversal is completed
+  //if not go to next vertex and repeats the same process again
+  bfs(int vertex) {
+    List<int> visited = [vertex];
+    List<int> queue = [vertex];
+    while (visited.length != graph.length) {
+      if (queue.isEmpty) {
+        queue.add(graph.keys.toSet().difference(visited.toSet()).first);
+        visited.add(queue.first);
+        print(queue);
+      }
+      var current = queue[0];
+      queue.removeAt(0);
+      for (var val in graph[current]!) {
+        if (!visited.contains(val)) {
+          visited.add(val);
+          queue.add(val);
+        }
+      }
+    }
+    print(visited);
+  }
+
+  void dfs(int start) {
+    Set<int> visited = {};
+    dfsHelper(start, visited);
+  }
+
+  void dfsHelper(int vertex, Set<int> visited) {
+    visited.add(vertex);
+    print(vertex);
+
+    List<int>? neighbors = graph[vertex];
+    if (neighbors != null) {
+      for (int neighbor in neighbors) {
+        if (!visited.contains(neighbor)) {
+          dfsHelper(neighbor, visited);
+        }
+      }
     }
   }
 }
